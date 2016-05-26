@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="/assets/css/atcoder.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="/assets/js/jquery-tbodyscroll/jquery.tbodyscroll.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    var problems = <%= @solved.map{|user| [user[0],user[1].length] } %>;
+  
+  </script>
+</head>
+<body>
+  <div id="result"></div>
+  
+<nav>
+  <a href='#abc'>Atcoder Beginner Contest</a>
+  <a href='#arc'>Atcoder Regular Contest</a>
+  <a href='#other'>Other Contest</a>
+</nav>
+
+<div id='abc'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2">rank</th>
+        <th rowspan="2">name</th>
+        <% @users.each do |user| %>
+          <th id=<%= user %>><%= user %>
+          </th>
+        <% end%> 
+      </tr>
+    </thead>
+    <tbody>
+      <% past = "" %>
+      <% @contests.each do |contest| %>
+        <% if contest[:contest].to_s.match(/abc/) == nil %>
+          <% next %>
+        <% end %>
+        <% if past != contest[:contest] %>
+          <tr>
+            <td colspan="<%= @users.length + 3%>"  class="contest_title">
+              <%= contest[:contest] %>          
+            </td>
+          </tr>
+        <% end %>
+        <% past = contest[:contest] %>
+        <tr>
+          <td class="rank"><%= contest[:name][0] %></td>
+          <td><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <% @users.each do |user| %>
+            <td>
+              <% if @solved[user].include?(contest[:id]) then%>
+                <p class="text-success">success!</p>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id='arc' class='content'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2">rank</th>
+        <th rowspan="2">name</th>
+        <% @users.each do |user| %>
+          <th id=<%= user %>><%= user %>
+          </th>
+        <% end%> 
+      </tr>
+    </thead>
+    <tbody>
+      <% past = "" %>
+      <% @contests.each do |contest| %>
+        <% if contest[:contest].to_s.match(/arc/) == nil %>
+          <% next %>
+        <% end %>
+        <% if past != contest[:contest] %>
+          <tr>
+            <td colspan="<%= @users.length + 3%>"  class="contest_title">
+              <%= contest[:contest] %>          
+            </td>
+          </tr>
+        <% end %>
+        <% past = contest[:contest] %>
+        <tr>
+          <td class="rank"><%= contest[:name][0] %></td>
+          <td><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <% @users.each do |user| %>
+            <td>
+              <% if @solved[user].include?(contest[:id]) then%>
+                <p class="text-success">success!</p>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div id='other' class='content'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2">rank</th>
+        <th rowspan="2">name</th>
+        <% @users.each do |user| %>
+          <th id=<%= user %>><%= user %>
+          </th>
+        <% end%> 
+      </tr>
+    </thead>
+    <tbody>
+      <% past = "" %>
+      <% @contests.each do |contest| %>
+        <% if contest[:contest].to_s.match(/abc/) or contest[:contest].to_s.match(/arc/) %>
+          <% next %>
+        <% end %>
+        <% if past != contest[:contest] %>
+          <tr>
+            <td colspan="<%= @users.length + 3%>"  class="contest_title">
+              <%= contest[:contest] %>          
+            </td>
+          </tr>
+        <% end %>
+        <% past = contest[:contest] %>
+        <tr>
+          <td class="rank"><%= contest[:name][0] %></td>
+          <td><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <% @users.each do |user| %>
+            <td>
+              <% if @solved[user].include?(contest[:id]) then%>
+                <p class="text-success">success!</p>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+
+var w = 500;
+var h = problems.length * 30;
+var nameSpace = 78;
+var solvedSpace = 27;
+var xScale = d3.scale.linear()
+                .domain([0,500-nameSpace-solvedSpace])
+                .range([0,w])
+
+var svg = d3.select("#result").append("svg").attr({width:w, height:h});
+
+svg.selectAll("rect")
+    .data(problems)
+    .enter()
+    .append("rect")
+    .attr({
+      x: nameSpace+solvedSpace,
+      y: function(d,i){return i * 25;},
+      width: function(d){return xScale(d[1])},
+      height: 20,
+      fill: function(d){
+        if(d[1] >= 250)return "red";
+        if(d[1] >= 200)return "yellow";
+        if(d[1] >= 100)return "blue";
+        return "green";
+      }
+    })
+svg.selectAll("text.name")
+    .data(problems)
+    .enter()
+    .append("text")
+    .attr({
+      x: 0,
+      y: function(d,i){ return i * 25 + 12;}
+    }).text(function(d){
+      return d[0].substr(0,10);
+    })
+      
+
+svg.selectAll("text.hoge")
+    .data(problems)
+    .enter()
+    .append("text")
+    .attr({
+      x: nameSpace,
+      y: function(d,i){ return i * 25 + 12;}
+    }).text(function(d){
+     return d[1];
+    })
+      
+ </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+
+.rank{
+    width: 50px;
+    text-align: center;
+}
+.contest{
+    width: 50px;
+}
+th{
+    background-color: red;
+    width: 100px;
+}
+.contest_title{
+    background-color: blue;
+}
+/* -- for tab selection -- */
+a {
+  border-radius: 6px 6px 0 0;
+  display: inline-block;
+  line-height: 32px;
+  font: sans-serif;
+  text-align: center;
+  background-color: #efefef;
+  color: black;
+  margin-left: 4px;
+  text-decoration: none;
+  padding: 0 32px;
+}
+
+.content {
+  border: 1px solid lightgray;
+  height: 320px;
+  display: none;
+    padding: 32px;
+}
+
+.content:target {
+  display: block;
+}
+/* -- end -- */
