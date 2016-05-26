@@ -7,14 +7,24 @@
     width: 50px;
 }
 th{
-    background-color: red;
+     padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
     width: 100px;
 }
 .contest_title{
-    background-color: blue;
+    background-color: black;
+    color: white;
 }
+#result{
+  margin:10px;
+  text-align: center;
+}
+
 /* -- for tab selection -- */
-a {
+.tab_link {
   border-radius: 6px 6px 0 0;
   display: inline-block;
   line-height: 32px;
@@ -31,10 +41,41 @@ a {
   border: 1px solid lightgray;
   height: 320px;
   display: none;
-    padding: 32px;
+  padding: 32px;
 }
 
 .content:target {
   display: block;
 }
+/* -- end -- */
+
+/* -- for stop bar -- */
+.header {
+  height: 100px;
+}
+.header .fixbar {
+  position: absolute;
+  background-image: url('images/bg01.png');
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,.2), 0px -1px 5px 1px rgba(255,255,255,1) inset;
+  width: 100%;
+  padding-top: 20px;
+  background-color: #000000	;
+  color: white ;
+}
+.header.fixed .fixbar {
+  position: fixed;
+  margin-top: -10px;
+}
+#top{
+  margin: 10px ;
+}
+/* -- end -- */
+
+/* -- for table line -- */
+.table_line {
+   border-style: solid dotted;/* 線種 */
+   border-width: 2px; /* 線の太さ */
+   border-color: black; /* 線色 */
+}
+
 /* -- end -- */

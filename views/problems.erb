@@ -14,15 +14,23 @@
   </script>
 </head>
 <body>
-  <div id="result"></div>
   
-<nav>
-  <a href='#abc'>Atcoder Beginner Contest</a>
-  <a href='#arc'>Atcoder Regular Contest</a>
-  <a href='#other'>Other Contest</a>
-</nav>
+<header class="header">
+  <div class="fixbar">
+    <h1 id="top">Atcoder 進捗どうですか？</h1>
+  </div>
+</header>
+  
+<div class="wrapper">  
+  <div id="result"></div>
 
-<div id='abc'>
+<nav>
+  <a class="tab_link" href='#abc'>Atcoder Beginner Contest</a>
+  <a class="tab_link" href='#arc'>Atcoder Regular Contest</a>
+  <a class="tab_link" href='#atc'>Atcoder Typical Contest</a>
+  <a class="tab_link" href='#other'>Other Contest</a>
+</nav>
+<div id='abc' class='content'>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -49,10 +57,10 @@
         <% end %>
         <% past = contest[:contest] %>
         <tr>
-          <td class="rank"><%= contest[:name][0] %></td>
-          <td><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <td class="rank table_line"><%= contest[:name][0] %></td>
+          <td class="title table_line"><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
           <% @users.each do |user| %>
-            <td>
+            <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
                 <p class="text-success">success!</p>
               <% end %>
@@ -91,10 +99,10 @@
         <% end %>
         <% past = contest[:contest] %>
         <tr>
-          <td class="rank"><%= contest[:name][0] %></td>
-          <td><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <td class="rank table_line"><%= contest[:name][0] %></td>
+          <td class="table_line"><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
           <% @users.each do |user| %>
-            <td>
+            <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
                 <p class="text-success">success!</p>
               <% end %>
@@ -105,6 +113,70 @@
     </tbody>
   </table>
 </div>
+
+<div id='atc' class='content'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2">rank</th>
+        <th rowspan="2">name</th>
+        <% @users.each do |user| %>
+          <th id=<%= user %>><%= user %>
+          </th>
+        <% end%> 
+      </tr>
+    </thead>
+    <tbody>
+      <% past = "" %>
+      <% @contests.each do |contest| %>
+        <% # atc002_a is abc007_3 %>
+        <% if contest[:contest].to_s.match(/atc/) == nil and contest[:id] != "abc007_3" %> 
+          <% next %>
+        <% end %>
+        <% if contest[:contest].to_s.match(/atc/).nil? %>
+          <% past = "atc002" %>
+          <tr>
+            <td colspan="<%= @users.length + 3%>"  class="contest_title">
+              <%= past %>          
+            </td>
+          </tr>
+          <tr> 
+            <td class="rank table_line"><%= "A" %></td>
+            <td class="table_line"><a href="http://<%= past %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+            <% @users.each do |user| %>
+              <td class="table_line">
+                <% if @solved[user].include?(contest[:id]) then%>
+                  <p class="text-success">success!</p>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+          <% next%>
+        <% end %> 
+        <% if past != contest[:contest] %>
+          <tr>
+            <td colspan="<%= @users.length + 3%>"  class="contest_title">
+              <%= contest[:contest] %>          
+            </td>
+          </tr>
+        <% end %>
+        <% past = contest[:contest] %>
+        <tr>
+          <td class="rank table_line"><%= contest[:name][0] %></td>
+          <td class="table_line"><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <% @users.each do |user| %>
+            <td class="table_line">
+              <% if @solved[user].include?(contest[:id]) then%>
+                <p class="text-success">success!</p>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
 <div id='other' class='content'>
   <table class="table table-hover">
     <thead>
@@ -120,7 +192,7 @@
     <tbody>
       <% past = "" %>
       <% @contests.each do |contest| %>
-        <% if contest[:contest].to_s.match(/abc/) or contest[:contest].to_s.match(/arc/) %>
+        <% if contest[:contest].to_s.match(/abc/) or contest[:contest].to_s.match(/arc/) or contest[:contest].to_s.match(/atc/) %>
           <% next %>
         <% end %>
         <% if past != contest[:contest] %>
@@ -132,10 +204,10 @@
         <% end %>
         <% past = contest[:contest] %>
         <tr>
-          <td class="rank"><%= contest[:name][0] %></td>
-          <td><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
+          <td class="rank table_line"><%= contest[:name][0] %></td>
+          <td class="table_line"><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
           <% @users.each do |user| %>
-            <td>
+            <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
                 <p class="text-success">success!</p>
               <% end %>
@@ -146,7 +218,7 @@
     </tbody>
   </table>
 </div>
-
+</div>
 <script>
 
 var w = 500;
@@ -197,7 +269,15 @@ svg.selectAll("text.hoge")
     }).text(function(d){
      return d[1];
     })
-      
+      $(function() {
+  $(window).on('scroll', function() {
+    if ($(this).scrollTop() > 50) {
+      $('.header').addClass('fixed');
+    } else {
+      $('.header').removeClass('fixed');
+    }
+  });
+});
  </script>
 </body>
 </html>
