@@ -5,9 +5,10 @@
   <title>Document</title>
   <link rel="stylesheet" href="/assets/css/atcoder.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/jquery.mouseinfobox.css" />
   <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script src="/assets/js/jquery-tbodyscroll/jquery.tbodyscroll.js" charset="utf-8"></script>
+  <script type="text/javascript" src="assets/js/jquery.mouseinfobox.js"></script>
   <script type="text/javascript">
     var problems = <%= @solved.map{|user| [user[0],user[1].length] } %>;
   
@@ -62,7 +63,7 @@
           <% @users.each do |user| %>
             <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
-                <p class="text-success">success!</p>
+                <p class="text-success show_name" title=<%= user %>>success!</p>
               <% end %>
             </td>
           <% end %>
@@ -104,7 +105,7 @@
           <% @users.each do |user| %>
             <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
-                <p class="text-success">success!</p>
+                <p class="text-success show_name" title=<%= user %>>success!</p>
               <% end %>
             </td>
           <% end %>
@@ -167,7 +168,7 @@
           <% @users.each do |user| %>
             <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
-                <p class="text-success">success!</p>
+                <p class="text-success show_name" title=<%= user %>>success!</p>
               <% end %>
             </td>
           <% end %>
@@ -209,7 +210,7 @@
           <% @users.each do |user| %>
             <td class="table_line">
               <% if @solved[user].include?(contest[:id]) then%>
-                <p class="text-success">success!</p>
+                <p class="text-success show_name" title=<%= user %>>success!</p>
               <% end %>
             </td>
           <% end %>
@@ -278,6 +279,13 @@ svg.selectAll("text.hoge")
     }
   });
 });
- </script>
+      
+$('.show_name').infoBox({ // 吹き出し
+  animation: ['opacity', 'bottom'],
+  useMouse: false,
+  offsetX: 30,
+  offsetY: 0
+});
+  </script>
 </body>
 </html>
