@@ -22,7 +22,9 @@ th{
   margin:10px;
   text-align: center;
 }
-
+.ac {
+  background-color: #A9BCF5;
+}
 /* -- for tab selection -- */
 .tab_link {
   border-radius: 6px 6px 0 0;
