@@ -16,7 +16,8 @@ get '/' do
     'yuiop'
   ]
   @contests = problems
-  @solved = Hash[solved(copy(@users)).sort_by { |k, v| v.join.length }.reverse]
+  @solved = Hash[solved(copy(@users)).sort_by { |k, v| v.length }.reverse]
+  puts @solved
   @users = @solved.keys
   erb :problems
 end

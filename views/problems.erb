@@ -107,11 +107,14 @@
           <td class="rank table_line"><%= contest[:name][0] %></td>
           <td class="table_line"><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
           <% @users.each do |user| %>
-            <td class="table_line">
-              <% if @solved[user].include?(contest[:id]) then%>
-                <p class="text-success show_name" title=<%= user %>>success!</p>
-              <% end %>
-            </td>
+             <% if @solved[user].include?(contest[:id]) then%>
+                <td class="table_line ac">
+                  <p class="text-success show_name" title=<%= user %>>success!</p>
+                </td>
+              <% else %>
+                <td class="table_line">
+                </td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
@@ -149,11 +152,14 @@
             <td class="rank table_line"><%= "A" %></td>
             <td class="table_line"><a href="http://<%= past %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
             <% @users.each do |user| %>
-              <td class="table_line">
-                <% if @solved[user].include?(contest[:id]) then%>
-                  <p class="text-success">success!</p>
-                <% end %>
-              </td>
+             <% if @solved[user].include?(contest[:id]) then%>
+                <td class="table_line ac">
+                  <p class="text-success show_name" title=<%= user %>>success!</p>
+                </td>
+              <% else %>
+                <td class="table_line">
+                </td>
+            <% end %>
             <% end %>
           </tr>
           <% next%>
@@ -212,11 +218,14 @@
           <td class="rank table_line"><%= contest[:name][0] %></td>
           <td class="table_line"><a href="http://<%= contest[:contest] %>.contest.atcoder.jp/tasks/<%= contest[:id] %>"><%= contest[:name].split('.')[1] %></a></td>
           <% @users.each do |user| %>
-            <td class="table_line">
-              <% if @solved[user].include?(contest[:id]) then%>
-                <p class="text-success show_name" title=<%= user %>>success!</p>
-              <% end %>
-            </td>
+           <% if @solved[user].include?(contest[:id]) then%>
+                <td class="table_line ac">
+                  <p class="text-success show_name" title=<%= user %>>success!</p>
+                </td>
+              <% else %>
+                <td class="table_line">
+                </td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
