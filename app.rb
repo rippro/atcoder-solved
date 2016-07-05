@@ -13,7 +13,8 @@ get '/' do
     'noy72',
     'uchi',
     'Yazaten',
-    'yuiop'
+    'yuiop',
+    'yebityon'
   ]
   @contests = problems
   @solved = Hash[solved(copy(@users)).sort_by { |k, v| v.length }.reverse]
@@ -32,7 +33,8 @@ get '/solved' do
     'noy',
     'uchi',
     'Yazaten',
-    'yuiop'
+    'yuiop',
+    'yebityon'
   ]
   @solved = solved(copy(@users))
   return (@solved["uchi"].include?("abc013_2") ? "YES": "NO")
