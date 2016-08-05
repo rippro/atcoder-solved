@@ -28,6 +28,7 @@
 <nav>
   <a class="tab_link" href='#abc'>Atcoder Beginner Contest</a>
   <a class="tab_link" href='#arc'>Atcoder Regular Contest</a>
+  <a class="tab_link" href='#agc'>Atcoder Grand Contest</a>
   <a class="tab_link" href='#atc'>Atcoder Typical Contest</a>
   <a class="tab_link" href='#other'>Other Contest</a>
 </nav>
@@ -89,10 +90,46 @@
         <% end%> 
       </tr>
     </thead>
+
     <tbody>
       <% past = "" %>
       <% @contests.each do |contest| %>
         <% if contest[:contest].to_s.match(/arc/) == nil %>
+          <% next %>
+        <% end %>
+        <% if past != contest[:contest] %>
+          <tr>
+            <td colspan="<%= @users.length + 3%>"  class="contest_title">
+              <%= contest[:contest] %>          
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+        <% past = contest[:contest] %>
+        </tr>
+        <tr>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id='agc' class='content'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2">rank</th>
+        <th rowspan="2">name</th>
+        <% @users.each do |user| %>
+          <th id=<%= user %>><%= user %>
+          </th>
+        <% end%> 
+      </tr>
+    </thead>
+    <tbody>
+      <% past = "" %>
+      <% @contests.each do |contest| %>
+        <% if contest[:contest].to_s.match(/agc/) == nil %>
           <% next %>
         <% end %>
         <% if past != contest[:contest] %>
@@ -203,7 +240,8 @@
     <tbody>
       <% past = "" %>
       <% @contests.each do |contest| %>
-        <% if contest[:contest].to_s.match(/abc/) or contest[:contest].to_s.match(/arc/) or contest[:contest].to_s.match(/atc/) %>
+        <% if contest[:contest].to_s.match(/abc/) or contest[:contest].to_s.match(/arc/) \
+        or contest[:contest].to_s.match(/agc/) or contest[:contest].to_s.match(/atc/) %>
           <% next %>
         <% end %>
         <% if past != contest[:contest] %>
