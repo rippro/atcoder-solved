@@ -23,22 +23,34 @@ get '/' do
   erb :problems
 end
 
-get '/solved' do
+get '/solved/:id' do
   @users = [
-    'rika0384',
+#    'rika0384',
     'yoshikawa1118',
-    'shield_remon',
+#    'shield_remon',
     'ixmel_rd',
-    'tuki_remon',
-    'noy',
-    'uchi',
-    'Yazaten',
-    'yuiop',
-    'yebityon'
+#    'tuki_remon',
+#    'noy',
+#    'uchi',
+#    'Yazaten',
+#    'yuiop',
+#    'yebityon'
   ]
-  @solved = solved(copy(@users))
-  return (@solved["uchi"].include?("abc013_2") ? "YES": "NO")
+  @contests = problems
+  @solved = solved(@users)
+  @users = @users.sort_by{ | user | - @solved[user].length }
+  case params[:id].to_i
+  when 1 then
+    erb :abc
+  when 2 then
+    erb :arc
+  when 3 then 
+    erb :agc
+  when 4 then
+    erb :other
+  end
 end
+
 def copy(users)
   Marshal.load(Marshal.dump(users))
 end
@@ -60,18 +72,14 @@ end
 
 def solved(users)
   ary = {}
-  user_str = ""
-  users.map! {|user| 
-    user_str += user + ',' 
-    ary[user] = []
-  }
   # get problems
-  uri = URI.parse('http://kenkoooo.com/atcoder-api/problems?rivals=' + user_str)
-  json = Net::HTTP.get(uri)
-  results = JSON.parse(json)
-  results.map! {|problem| 
-    problem["rivals"].map! { |rival|
-      ary[rival].push(problem["id"])
+  users.map{|user|
+    uri = URI.parse('http://kenkoooo.com/atcoder-api/problems?user='+user)
+    json = Net::HTTP.get(uri)
+    ary[user] = Array.new
+    results = JSON.parse(json)
+    results.map! {|problem| 
+      ary[user].push(problem)
     }
   }
   ary
