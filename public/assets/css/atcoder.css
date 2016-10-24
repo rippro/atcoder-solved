@@ -7,7 +7,7 @@
     width: 50px;
 }
 th{
-     padding: 10px;
+    padding: 10px;
     font-weight: bold;
     vertical-align: top;
     color: #369;
@@ -19,7 +19,7 @@ th{
     color: white;
 }
 #result{
-  margin:10px;
+  margin:100px;
   text-align: center;
 }
 .ac {
