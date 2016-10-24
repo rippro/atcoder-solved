@@ -71,6 +71,9 @@ th{
 #top{
   margin: 10px ;
 }
+svg{
+  margin-top: 75px ;
+}
 /* -- end -- */
 
 /* -- for table line -- */
@@ -82,4 +85,12 @@ th{
 /* -- end -- */
 
 /* -- for table fukidashi -- */
+/* -- end -- */
+
+/* -- link color -- */
+header a { color: #8f8f8f; }
+header a:link { color: #ffffff; }
+header a:visited { color: #ffffff; }
+header a:hover { color: #8f8f8f; }
+header a:active { color: #ffffff; }
 /* -- end -- */

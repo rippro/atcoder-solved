@@ -23,7 +23,7 @@ get '/' do
   erb :problems
 end
 
-get '/solved' do
+get '/solved/:id' do
   @users = [
     'rika0384',
     'yoshikawa1118',
@@ -36,8 +36,31 @@ get '/solved' do
     'yuiop',
     'yebityon'
   ]
-  @solved = solved(copy(@users))
-  return (@solved["uchi"].include?("abc013_2") ? "YES": "NO")
+  @contests = problems
+  @solved = solved(@users)
+  @users = [
+    'rika0384',
+    'yoshikawa1118',
+    'shield_remon',
+    'ixmel_rd',
+    'tuki_remon',
+    'noy',
+    'uchi',
+    'Yazaten',
+    'yuiop',
+    'yebityon'
+  ]
+  @users = @users.sort_by{|user| -@solved[user].length }.map{ | user| user }
+  case params[:id].to_i
+  when 1 then
+    erb :abc
+  when 2 then
+    erb :arc
+  when 3 then 
+    erb :agc
+  when 4 then
+    erb :other
+  end
 end
 def copy(users)
   Marshal.load(Marshal.dump(users))
